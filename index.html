@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>فروش بازی‌های ویدیویی — GameVerse</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#" aria-label="GameVerse">
+          <img
+            src="assets/icons/GameVerse-logo-transparent.png"
+            alt="GameVerse Logo"
+            class="logo"
+          />
+        </a>
+
+        <div class="cart-area">
+          <button
+            id="cart-toggle"
+            class="cart-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="shopping-cart"
+          >
+            <img
+              src="assets/icons/shopping-cart-icon.png"
+              alt="سبد خرید"
+              class="cart-icon"
+            />
+            <span id="cart-count" class="cart-count" aria-live="polite">0</span>
+          </button>
+
+          <div id="shopping-cart" class="shopping-cart" hidden>
+            <table id="cart-content" class="cart-table">
+              <thead>
+                <tr>
+                  <th scope="col">کاور</th>
+                  <th scope="col">بازی</th>
+                  <th scope="col">قیمت</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- JS -->
+              </tbody>
+            </table>
+
+            <div class="cart-actions">
+              <button id="clear-cart" class="btn btn-clear" type="button">
+                پاک کردن سبد خرید
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="hero" class="hero">
+        <div class="container">
+          <h1 class="hero-title">GameVerse — فروشگاه بازی‌های ویدیویی</h1>
+          <p class="hero-sub">جدیدترین بازی‌های PS5، Xbox و PC</p>
+
+          <form
+            id="search"
+            class="search"
+            role="search"
+            action="#"
+            method="get"
+          >
+            <label for="search-game" class="sr-only">جستجوی بازی</label>
+            <input
+              id="search-game"
+              class="search-input"
+              type="search"
+              placeholder="اسم بازی مورد نظرت رو بنویس..."
+            />
+            <button
+              id="submit-search"
+              class="search-btn"
+              type="submit"
+              aria-label="جستجو"
+            ></button>
+          </form>
+        </div>
+      </section>
+
+      <section
+        id="games-list"
+        class="container courses-section"
+        aria-label="فهرست بازی‌ها"
+      >
+        <h2 id="heading" class="section-heading">بازی‌ها</h2>
+
+        <div class="courses-grid">
+          <article class="card" data-id="1">
+            <a class="card-link" href="#" target="_blank" rel="noopener">
+              <img
+                src="assets/images/Death Stranding 2.jpg"
+                alt="Death Stranding 2"
+                class="course-image"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">Death Stranding 2</h3>
+              <p class="card-author">پلتفرم: PS5</p>
+              <p class="price">
+                <span class="original-price">۳,۲۰۰,۰۰۰ تومان</span>
+                <span class="current-price">۲,۸۰۰,۰۰۰ تومان</span>
+              </p>
+              <button class="add-to-cart" type="button" data-id="1">
+                افزودن به سبد خرید
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-id="2">
+            <a class="card-link" href="#" target="_blank" rel="noopener">
+              <img
+                src="assets/images/Ghost of Yōtei.jpg"
+                alt="Ghost of Yōtei"
+                class="course-image"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">Ghost of Yōtei</h3>
+              <p class="card-author">پلتفرم: PS5</p>
+              <p class="price">
+                <span class="original-price">۳,۶۰۰,۰۰۰ تومان</span>
+                <span class="current-price">۳,۲۰۰,۰۰۰ تومان</span>
+              </p>
+              <button class="add-to-cart" type="button" data-id="2">
+                افزودن به سبد خرید
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-id="3">
+            <a class="card-link" href="#" target="_blank" rel="noopener">
+              <img
+                src="assets/images/The Callisto Protocol.jpg"
+                alt="The Callisto Protocol"
+                class="course-image"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">The Callisto Protocol</h3>
+              <p class="card-author">پلتفرم: Xbox / PC</p>
+              <p class="price">
+                <span class="original-price">۲,۵۰۰,۰۰۰ تومان</span>
+                <span class="current-price">۲,۱۰۰,۰۰۰ تومان</span>
+              </p>
+              <button class="add-to-cart" type="button" data-id="3">
+                افزودن به سبد خرید
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-id="4">
+            <a class="card-link" href="#" target="_blank" rel="noopener">
+              <img
+                src="assets/images/The Last of Us Part II.jpg"
+                alt="The Last of Us Part II"
+                class="course-image"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">The Last of Us Part II</h3>
+              <p class="card-author">پلتفرم: PS5</p>
+              <p class="price">
+                <span class="original-price">۳,۰۰۰,۰۰۰ تومان</span>
+                <span class="current-price">۲,۶۰۰,۰۰۰ تومان</span>
+              </p>
+              <button class="add-to-cart" type="button" data-id="4">
+                افزودن به سبد خرید
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <nav class="footer-nav">
+          <a href="#">بازی‌ها</a>
+          <a href="#">پرفروش‌ترین‌ها</a>
+          <a href="#">تخفیف‌ها</a>
+        </nav>
+
+        <nav class="footer-nav">
+          <a href="#">درباره ما</a>
+          <a href="#">تماس با ما</a>
+          <a href="#">وبلاگ</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
