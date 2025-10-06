@@ -39,7 +39,7 @@ function createCartRow(item) {
   // Add remove functionality
   row.querySelector(".remove").addEventListener("click", () => {
     row.remove();
-    removeFromCart(item.title); // Remove from localStorage
+    removeFromCart(item.id); // Remove from localStorage
     cardItemCount--;
     cartCount.textContent = cardItemCount;
   });
@@ -57,7 +57,12 @@ function addToCart(e) {
   const title = card.querySelector(".card-title").textContent;
   const price = card.querySelector(".current-price").textContent;
 
-  const game = { imgSrc, title, price };
+  const game = {
+    id: card.dataset.id,
+    imgSrc,
+    title,
+    price,
+  };
 
   // Append row to cart table
   cartContent.appendChild(createCartRow(game));
@@ -75,9 +80,9 @@ function addToCart(e) {
 // ==============================
 // ! Remove item from localStorage
 // ==============================
-function removeFromCart(title) {
+function removeFromCart(id) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart = cart.filter((item) => item.title !== title);
+  cart = cart.filter((item) => item.id !== id);
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -85,7 +90,9 @@ function removeFromCart(title) {
 // ! Clear entire cart
 // ==============================
 clearCartBtn.addEventListener("click", () => {
-  cartContent.innerHTML = "";
+  while (cartContent.firstChild) {
+    cartContent.removeChild(cartContent.firstChild);
+  }
   localStorage.removeItem("cart");
   cardItemCount = 0;
   cartCount.textContent = cardItemCount;
@@ -101,7 +108,7 @@ addToCartButtons.forEach((btn) => {
 // ==============================
 // ! Load cart from localStorage on page load
 // ==============================
-function onLoadPage() {
+function onPageLoad() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.forEach((item) => {
     cartContent.appendChild(createCartRow(item));
@@ -111,4 +118,4 @@ function onLoadPage() {
   cartCount.textContent = cardItemCount;
 }
 
-document.addEventListener("DOMContentLoaded", onLoadPage);
+document.addEventListener("DOMContentLoaded", onPageLoad);
