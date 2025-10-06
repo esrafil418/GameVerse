@@ -270,8 +270,8 @@ body {
   font-weight: 700;
 }
 
-/* courses carts */
-.courses-grid {
+/* games carts */
+.games-grid {
   display: grid;
   gap: var(--gap);
   grid-template-columns: 1fr;
@@ -343,7 +343,7 @@ body {
 
 /* responsive */
 @media (min-width: 720px) {
-  .courses-grid {
+  .games-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .features-grid {
@@ -361,7 +361,7 @@ body {
   }
 }
 @media (min-width: 1000px) {
-  .courses-grid {
+  .games-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
