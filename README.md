@@ -19,7 +19,7 @@ A simple and engaging video game store! Focused on a dynamic shopping cart, sear
 
 1. **Download the Project**:
 
-git clone <repo-url>  # Or download the files directly
+- git clone <repo-url>  # Or download the files directly
 cd GameVerse
 
 
