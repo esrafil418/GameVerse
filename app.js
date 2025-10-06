@@ -3,26 +3,50 @@ const cartToggle = document.querySelector("#cart-toggle");
 const cartCount = document.querySelector("#cart-count");
 const shoppingCart = document.querySelector("#shopping-cart");
 const cartContent = document.querySelector("#cart-content tbody");
+const totalPriceEl = document.querySelector("#total-price");
 const clearCartBtn = document.querySelector("#clear-cart");
+const closeCart = document.querySelector("#close-cart");
 const addToCartButtons = document.querySelectorAll(".add-to-cart");
+const searchBtn = document.getElementById("submit-search");
+const searchInput = document.getElementById("search-game");
 
 // ! Counter for number of items in cart
-let cardItemCount = 0;
+let cartItemCount = 0;
 
 // ==============================
 // ! Toggle Shopping Cart
 // ==============================
 cartToggle.addEventListener("click", () => {
-  const isHidden = shoppingCart.hasAttribute("hidden");
-
-  if (isHidden) {
-    shoppingCart.removeAttribute("hidden");
-    cartToggle.setAttribute("aria-expanded", "true");
-  } else {
-    shoppingCart.setAttribute("hidden", "");
-    cartToggle.setAttribute("aria-expanded", "false");
-  }
+  const isActive = shoppingCart.classList.toggle("active");
+  shoppingCart.setAttribute("aria-expanded", isActive);
+  cartToggle.setAttribute("aria-expanded", isActive);
 });
+
+closeCart.addEventListener("click", () => {
+  shoppingCart.classList.remove("active");
+  shoppingCart.setAttribute("aria-expanded", false);
+  cartToggle.setAttribute("aria-expanded", false);
+});
+
+// ==============================
+// ! Update total price function
+// ==============================
+function updateTotalPrice() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let total = 0;
+  cart.forEach((item) => {
+    const cleanedPrice = item.price.replace(/[^\d۰-۹]/g, ""); //
+    const priceNum = parseInt(toEnglishDigits(cleanedPrice));
+    total += priceNum * (item.quantity || 1);
+  });
+  totalPriceEl.textContent = `مجموع: ${total.toLocaleString()} تومان`;
+}
+//
+function toEnglishDigits(str) {
+  const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+  const englishDigits = "0123456789";
+  return str.replace(/[۰-۹]/g, (d) => persianDigits.indexOf(d));
+}
 
 // ==============================
 // ! Create cart row function
@@ -31,17 +55,20 @@ function createCartRow(item) {
   const row = document.createElement("tr");
   row.innerHTML = `
     <td><img src="${item.imgSrc}" alt="${item.title}"></td>
-    <td>${item.title}</td>
+    <td>${item.title} (تعداد: ${item.quantity || 1})</td>
     <td>${item.price}</td>
-    <td><button class="remove" type="button">X</button></td>
+    <td><button class="remove" type="button" data-id="${
+      item.id
+    }">X</button></td>
   `;
 
   // Add remove functionality
   row.querySelector(".remove").addEventListener("click", () => {
     row.remove();
     removeFromCart(item.id); // Remove from localStorage
-    cardItemCount--;
-    cartCount.textContent = cardItemCount;
+    updateTotalPrice();
+    cartItemCount = document.querySelectorAll("#cart-content tbody tr").length;
+    cartCount.textContent = cartItemCount;
   });
 
   return row;
@@ -62,19 +89,32 @@ function addToCart(e) {
     imgSrc,
     title,
     price,
+    quantity: 1, // Default quantity
   };
 
-  // Append row to cart table
-  cartContent.appendChild(createCartRow(game));
-
-  // Save to localStorage
+  // Check for duplicates and update quantity
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(game);
+  const existingItem = cart.find((item) => item.id === game.id);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push(game);
+  }
   localStorage.setItem("cart", JSON.stringify(cart));
 
-  // Update counter
-  cardItemCount++;
-  cartCount.textContent = cardItemCount;
+  // Update UI: remove old rows for this id and recreate
+  document.querySelectorAll(`#cart-content tbody tr`).forEach((row) => {
+    if (row.querySelector(".remove").dataset.id === game.id) {
+      row.remove();
+    }
+  });
+  const newRow = createCartRow(cart.find((item) => item.id === game.id));
+  cartContent.appendChild(newRow);
+
+  // Update counter and total
+  cartItemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  cartCount.textContent = cartItemCount;
+  updateTotalPrice();
 }
 
 // ==============================
@@ -94,8 +134,26 @@ clearCartBtn.addEventListener("click", () => {
     cartContent.removeChild(cartContent.firstChild);
   }
   localStorage.removeItem("cart");
-  cardItemCount = 0;
-  cartCount.textContent = cardItemCount;
+  cartItemCount = 0;
+  cartCount.textContent = cartItemCount;
+  updateTotalPrice();
+});
+
+// ==============================
+// ! Search functionality
+// ==============================
+searchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const query = searchInput.value.toLowerCase().trim();
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) => {
+    const title = card.querySelector(".card-title").textContent.toLowerCase();
+    if (title.includes(query) || query === "") {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
 });
 
 // ==============================
@@ -111,11 +169,13 @@ addToCartButtons.forEach((btn) => {
 function onPageLoad() {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.forEach((item) => {
-    cartContent.appendChild(createCartRow(item));
+    const row = createCartRow(item);
+    cartContent.appendChild(row);
   });
 
-  cardItemCount = cart.length;
-  cartCount.textContent = cardItemCount;
+  cartItemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  cartCount.textContent = cartItemCount;
+  updateTotalPrice();
 }
 
 document.addEventListener("DOMContentLoaded", onPageLoad);
