@@ -10,6 +10,40 @@ const addToCartButtons = document.querySelectorAll(".add-to-cart");
 const searchBtn = document.getElementById("submit-search");
 const searchInput = document.getElementById("search-game");
 
+// ==============================
+// ! Toast Notification
+function showToast(message, duration = 3000) {
+  let toast = document.querySelector("#toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.style.cssText = `
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brand);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      z-index: 1001;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 14px;
+      text-align: center;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.style.opacity = "1"; // show
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+// ==============================
+
 // ! Counter for number of items in cart
 let cartItemCount = 0;
 
@@ -115,6 +149,7 @@ function addToCart(e) {
   cartItemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   cartCount.textContent = cartItemCount;
   updateTotalPrice();
+  showToast(`${game.title} به سبد خرید اضافه شد!`);
 }
 
 // ==============================

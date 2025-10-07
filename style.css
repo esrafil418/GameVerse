@@ -355,6 +355,11 @@ body {
   margin-bottom: 8px;
 }
 
+/* Toast animation */
+#toast {
+  box-shadow: var(--accent);
+}
+
 /* responsive */
 @media (min-width: 720px) {
   .games-grid {
