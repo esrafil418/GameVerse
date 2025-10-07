@@ -1,6 +1,7 @@
 # GameVerse
 
 ![GameVerse Logo](assets/icons/GameVerse-logo-transparent.png)
+https://gameverse-official.netlify.app/
 
 A simple and engaging video game store! Focused on a dynamic shopping cart, search, and item management. Built with pure HTML, CSS, and JavaScript (no frameworks).
 
