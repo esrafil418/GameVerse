@@ -25,6 +25,7 @@ body {
   color: #222;
   direction: rtl;
   line-height: 1.45;
+  padding-top: 70px;
 }
 
 /* screen readers */
@@ -52,8 +53,11 @@ body {
 .site-header {
   background: var(--bg);
   border-bottom: 1px solid #eee;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 50;
 }
 .header-inner {
