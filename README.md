@@ -3,7 +3,7 @@
 ![GameVerse Logo](assets/icons/GameVerse-logo-transparent.png)
 [![wakatime](https://wakatime.com/badge/user/396dff75-025e-4679-bd2e-c74ec170e549/project/5ed43a4f-e5f2-4c97-a8bf-1c8f3f99dea6.svg)](https://wakatime.com/badge/user/396dff75-025e-4679-bd2e-c74ec170e549/project/5ed43a4f-e5f2-4c97-a8bf-1c8f3f99dea6)
 
-https://gameverse-official.netlify.app/
+![🚀 Live Preview](https://esrafil418.github.io/GameVerse/)
 
 A simple and engaging video game store! Focused on a dynamic shopping cart, search, and item management. Built with pure HTML, CSS, and JavaScript (no frameworks).
 
